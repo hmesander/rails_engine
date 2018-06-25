@@ -1,7 +1,7 @@
 ## Rails Engine
 
 * JSON API Exploration
-This project uses Ruby on Rails, ActiveRecord and a PostgreSQL database to build JSON API endpoints that expose typical [eCommerce data] (https://github.com/turingschool-examples/sales_engine/tree/master/data). This API serves business intelligence, relationship endpoints, and record endpoints.
+This project uses Ruby on Rails, ActiveRecord and a PostgreSQL database to build JSON API endpoints that expose typical [eCommerce data](https://github.com/turingschool-examples/sales_engine/tree/master/data). This API serves business intelligence, relationship endpoints, and record endpoints.
 
 * The spec for this project can be found here: [Project Spec](http://backend.turing.io/module3/projects/rails_engine)
 
@@ -148,5 +148,5 @@ GET /api/v1/customers/:id/favorite_merchant returns a merchant where the custome
 * [shoulda matchers](https://github.com/thoughtbot/shoulda-matchers)
 
 ## Authors
-[Zachary Thomas] (https://github.com/zdcthomas)
+* [Zachary Thomas](https://github.com/zdcthomas)
 * [Haley Mesander](https://github.com/hmesander)

@@ -35,4 +35,21 @@ describe 'Customers API' do
 
     expect(returned['first_name']).to eq(customer.first_name)
   end
+
+  it 'can find all customers from given params' do
+    create_list(:customer, 3, first_name: 'Haley')
+    name = 'Sam'
+    create_list(:customer, 5, first_name: name)
+
+    get "/api/v1/customers/find_all?first_name=#{name}"
+
+    expect(response).to have_http_status(200)
+
+    customers = JSON.parse(response.body)
+
+    expect(customers.count).to eq(5)
+    customers.each do |customer|
+      expect(customer['first_name']).to eq(name)
+    end
+  end
 end

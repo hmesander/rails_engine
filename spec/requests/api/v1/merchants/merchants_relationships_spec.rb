@@ -11,7 +11,6 @@ describe 'Merchants API' do
 
     items = JSON.parse(response.body)
 
-    expect(items.length).to eq(5)
-    expect(response.body).to have_content(items[0].name)
+    expect(items.count).to eq(5)
   end
 end

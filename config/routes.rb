@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         get ':id/merchant', to: 'item_merchant#index'
       end
       resources :items, only: [:index, :show]
+      resources :customers, only: [:index]
     end
   end
 end

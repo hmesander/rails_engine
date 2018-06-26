@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       end
       resources :invoices, only: [:index, :show]
 
-      resources :transactions, only: [:index]
+      resources :transactions, only: [:index, :show]
     end
   end
 end

@@ -33,6 +33,7 @@ group :development, :test do
   gem 'pry'
   gem 'shoulda-matchers'
 end
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -40,7 +41,6 @@ group :development do
   gem 'spring'
   gem 'rake-progressbar'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'active_model_serializers', '~> 0.10.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

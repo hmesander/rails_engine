@@ -39,6 +39,7 @@ describe 'Transactions API' do
     credit_card_num = transactions[1].credit_card_number
 
     get "/api/v1/transactions/find?credit_card_number=#{credit_card_num}"
+
     expect(response).to have_http_status(200)
 
     transaction = JSON.parse(response.body)

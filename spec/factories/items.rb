@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :item do
     name "MyString"
     description "MyText"
-    merchant_id nil
+    merchant
     unit_price ""
   end
 end

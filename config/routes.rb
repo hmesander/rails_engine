@@ -9,6 +9,8 @@ Rails.application.routes.draw do
         get ':id/invoices', to: 'merchant_invoices#index'
       end
       resources :merchants, only: [:index, :show]
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+      resources :items, only: [:index, :show]
     end
   end
 end

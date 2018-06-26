@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         get ':id/invoices', to: 'merchant_invoices#index'
       end
       resources :merchants, only: [:index, :show]
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
       namespace :items do
         get 'random', to: 'random#show'
         get 'find', to: 'search#show'
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         get ':id/merchant', to: 'item_merchant#index'
       end
       resources :items, only: [:index, :show]
-      resources :customers, only: [:index]
+      resources :customers, only: [:index, :show]
     end
   end
 end

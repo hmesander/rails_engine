@@ -4,7 +4,7 @@ describe 'Invoice Relationships API' do
   it 'should return all associated transactions' do
     invoice = create(:invoice)
     create_list(:transaction, 4, invoice: invoice)
-    create_list(:transaction, 4, invoice: invoice)
+    create_list(:transaction, 4)
 
 
     get "/api/v1/invoices/#{invoice.id}/transactions"
@@ -56,9 +56,9 @@ describe 'Invoice Relationships API' do
     get "/api/v1/invoices/#{invoice.id}/merchant"
 
     expect(response).to be_successful
-    returned_customer = JSON.parse(response.body)
+    returned_merchant = JSON.parse(response.body)
 
-    expect(returned_customer["name"]).to eq(customer.name)
+    expect(returned_merchant["name"]).to eq(merchant.name)
 
   end
 

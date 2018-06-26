@@ -30,7 +30,7 @@ describe 'Merchants API' do
     create(:merchant, name: name)
 
     get "/api/v1/merchants/find?name=#{name}"
-    expect(response).to be_success
+    expect(response).to have_http_status(200)
 
     merchant = JSON.parse(response.body)
 

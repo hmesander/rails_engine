@@ -28,10 +28,11 @@ describe 'Customers API' do
     customer = create(:customer)
 
     get "/api/v1/customers/find?first_name=#{customer.first_name}"
+
     expect(response).to have_http_status(200)
 
-    customer = JSON.parse(response.body)
+    returned = JSON.parse(response.body)
 
-    expect(customer['first_name']).to eq(customer.first_name)
+    expect(returned['first_name']).to eq(customer.first_name)
   end
 end

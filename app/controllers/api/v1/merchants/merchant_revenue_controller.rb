@@ -1,5 +1,5 @@
 class Api::V1::Merchants::MerchantRevenueController < ApplicationController
-  def index
-    render json: Merchant.total_revenue
+  def show
+    render json: Merchant.find(params[:id]).format_revenue
   end
 end

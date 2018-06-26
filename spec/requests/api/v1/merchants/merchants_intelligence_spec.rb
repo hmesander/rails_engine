@@ -15,8 +15,8 @@ describe 'Merchants API' do
     expect(response).to have_http_status(200)
 
     returned = JSON.parse(response.body)
-    expected = '%.2f' % (merchant.total_revenue.to_f / 100)
+    expected = '%.2f' % (merchant.total_revenue / 100)
 
-    expect(returned['revenue']).to eq(expected)
+    expect(returned).to eq(expected)
   end
 end

@@ -10,6 +10,11 @@ Rails.application.routes.draw do
       end
       resources :merchants, only: [:index, :show]
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+      namespace :items do
+        get 'random', to: 'random#show'
+        get 'find', to: 'search#show'
+        get 'find_all', to: 'search#index'
+      end
       resources :items, only: [:index, :show]
     end
   end

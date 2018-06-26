@@ -28,8 +28,8 @@ describe "Items API" do
     returned_item = JSON.parse(response.body)
     
     expect(response).to be_successful
-    expect(returned_item["name"]).tto eq(item.name)
-    expect(returned_item["id"]).tto eq(item.id)
+    expect(returned_item["name"]).to eq(item.name)
+    expect(returned_item["id"]).to eq(item.id)
   end
 
   it 'should return all items matching a given parameter' do
@@ -37,7 +37,7 @@ describe "Items API" do
     create_list(:item, 10, unit_price: price)
     create_list(:item, 3, unit_price: 10)
 
-    get "/api/v1/merchants/find_all?unit_price=#{price}"
+    get "/api/v1/items/find_all?unit_price=#{price}"
     returned_items = JSON.parse(response.body)
 
     expect(response).to be_successful
@@ -51,6 +51,6 @@ describe "Items API" do
     item = JSON.parse(response.body)
 
     expect(response).to be_successful
-    expect(possible_ids).to include(item.id)
+    expect(possible_ids).to include(item[0]["id"])
   end
 end

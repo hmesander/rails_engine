@@ -1,7 +1,8 @@
 ## Rails Engine
 
 * JSON API Exploration
-This project uses Ruby on Rails, ActiveRecord and a PostgreSQL database to build JSON API endpoints that expose typical [eCommerce data](https://github.com/turingschool-examples/sales_engine/tree/master/data). This API serves business intelligence, relationship endpoints, and record endpoints.
+
+* This project uses Ruby on Rails, ActiveRecord and a PostgreSQL database to build JSON API endpoints that expose typical [eCommerce data](https://github.com/turingschool-examples/sales_engine/tree/master/data). This API serves business intelligence, relationship endpoints, and record endpoints.
 
 * The spec for this project can be found here: [Project Spec](http://backend.turing.io/module3/projects/rails_engine)
 
@@ -12,8 +13,7 @@ To run this application locally, clone this repo and follow the steps below:
 Bundle:
 `$ bundle`
 
-Seed the database:
-`$ rake db:{create,migrate}`
+Database setup:
 `$ rake import_all`
 
 Start up your rails server with `rails s`

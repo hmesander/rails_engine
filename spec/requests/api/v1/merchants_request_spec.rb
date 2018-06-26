@@ -48,6 +48,8 @@ describe 'Merchants API' do
     merchants = JSON.parse(response.body)
 
     expect(merchants.count).to eq(5)
-    expect(merchants['name']).to eq(name)
+    merchants.each do |merchant|
+      expect(merchant['name']).to eq(name)
+    end
   end
 end

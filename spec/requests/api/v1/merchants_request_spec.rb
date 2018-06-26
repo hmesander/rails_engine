@@ -23,4 +23,17 @@ describe 'Merchants API' do
     expect(response).to have_http_status(200)
     expect(merchant['id']).to eq(id)
   end
+
+  it 'can find single object from given params' do
+    create(:merchant, name: 'Willms and Sons')
+    name = 'Hand-Spencer'
+    create(:merchant, name: name)
+
+    get "/api/v1/merchants/find?name=#{name}"
+    expect(response).to be_success
+
+    merchant = JSON.parse(response.body)
+
+    expect(merchant['name']).to eq('Hand-Spencer')
+  end
 end

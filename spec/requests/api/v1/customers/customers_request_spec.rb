@@ -52,4 +52,16 @@ describe 'Customers API' do
       expect(customer['first_name']).to eq(name)
     end
   end
+
+  it 'can return a random customer' do
+    customers = create_list(:customer, 8)
+
+    get '/api/v1/customers/random'
+
+    expect(response).to have_http_status(200)
+
+    customer = JSON.parse(response.body)
+
+    expect(customer[0]['first_name']).to eq(customers[1].first_name)
+  end
 end

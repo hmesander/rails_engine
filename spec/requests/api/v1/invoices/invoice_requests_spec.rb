@@ -6,7 +6,7 @@ describe "Invoices API" do
     get '/api/v1/invoices'
     expect(response).to be_successful 
     invoices = JSON.parse(response.body)
-    expect(invocies.count).to eq(5)
+    expect(invoices.count).to eq(5)
   end
 
   it 'should return a specific invoice by id' do
@@ -28,7 +28,7 @@ describe "Invoices API" do
     returned_invoice = JSON.parse(response.body)
     
     expect(response).to be_successful
-    expect(returned_invoice["name"]).to eq(invoice.name)
+    expect(returned_invoice["status"]).to eq(invoice.status)
     expect(returned_invoice["id"]).to eq(invoice.id)
   end
 

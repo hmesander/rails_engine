@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :invoice do
     customer
     merchant
-    status "MyString"
+    status Faker::Hipster.sentence
   end
 end

@@ -54,13 +54,13 @@ describe 'Merchants API' do
   end
 
   it 'can return a random merchant' do
-    create_list(:merchant, 8)
+    merchants = create_list(:merchant, 8)
 
     get '/api/v1/merchants/random'
     expect(response).to have_http_status(200)
 
     merchant = JSON.parse(response.body)
 
-    expect(merchant.keys).to eq(['id', 'name'])
+    expect(merchant['name']).to eq(merchants[1].name)
   end
 end

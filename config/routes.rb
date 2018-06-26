@@ -7,7 +7,11 @@ Rails.application.routes.draw do
         get 'random', to: 'random#show'
         get ':id/items', to: 'merchant_items#index'
         get ':id/invoices', to: 'merchant_invoices#index'
+<<<<<<< HEAD
         get ':id/favorite_customer', to: 'favorite_customer#show'
+=======
+        get ':id/revenue', to: 'merchant_revenue#index'
+>>>>>>> TESTS for individual merchant revenue endpoint
       end
       resources :merchants, only: [:index, :show]
 

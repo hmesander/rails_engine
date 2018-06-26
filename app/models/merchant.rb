@@ -12,5 +12,6 @@ class Merchant < ApplicationRecord
     .limit(1)
     .first
 
+  def total_revenue
   end
 end

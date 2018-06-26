@@ -57,10 +57,10 @@ describe 'Transactions API' do
 
     expect(response).to have_http_status(200)
 
-    transactions = JSON.parse(response.body)
+    returned = JSON.parse(response.body)
 
-    expect(transaction.count).to eq(3)
-    transactions.each do |transaction|
+    expect(returned.count).to eq(3)
+    returned.each do |transaction|
       expect(transaction['result']).to eq(transactions[1].result)
     end
   end

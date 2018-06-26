@@ -11,8 +11,6 @@ describe 'Merchants API' do
 
     items = JSON.parse(response.body)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     expect(items.count).to eq(5)
   end
 
@@ -28,12 +26,5 @@ describe 'Merchants API' do
     invoices = JSON.parse(response.body)
 
     expect(invoices.count).to eq(7)
-=======
-    expect(items.length).to eq(5)
-    expect(response.body).to have_content(items[0].name)
->>>>>>> TESTS merchant/item relationship endpoint
-=======
-    expect(items.count).to eq(5)
->>>>>>> Implements merchant/items relationship endpoint ATP
   end
 end

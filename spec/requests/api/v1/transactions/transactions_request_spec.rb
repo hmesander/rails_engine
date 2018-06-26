@@ -64,4 +64,19 @@ describe 'Transactions API' do
       expect(transaction['result']).to eq(transactions[1].result)
     end
   end
+
+  it 'can return a random transaction' do
+    customer = create(:customer)
+    merchant = create(:merchant)
+    invoice = create(:invoice, customer: customer, merchant: merchant)
+    create_list(:transaction, 3, invoice: invoice, credit_card_number: 12345678901234)
+
+    get '/api/v1/transactions/random'
+
+    expect(response).to have_http_status(200)
+
+    transaction = JSON.parse(response.body)
+
+    expect(transaction['credit_card_number']).to eq(transactions[1].credit_card_number)
+  end
 end

@@ -10,7 +10,7 @@ describe "Invoice_items API" do
   end
 
   it 'should return a specific invoice_item by id' do
-    invoice__item_id = create(:invoice).id
+    invoice_item_id = create(:invoice_item).id
 
     get "/api/v1/invoice_items/#{invoice_item_id}"
 
@@ -23,12 +23,13 @@ describe "Invoice_items API" do
   it 'should find an invoice_item with arbitrary params' do
     invoice_item =  create(:invoice_item)
     create_list(:invoice_item, 4)
-    get "/api/v1/invoice_items/find?status=#{invoice_item.status}"
+
+    get "/api/v1/invoice_items/find?quantity=#{invoice_item.quantity}"
 
     returned_invoice_item = JSON.parse(response.body)
     
     expect(response).to be_successful
-    expect(returned_invoice_item["status"]).to eq(invoice_item.status)
+    expect(returned_invoice_item["quantity"]).to eq(invoice_item.quantity)
     expect(returned_invoice_item["id"]).to eq(invoice_item.id)
   end
 
@@ -47,7 +48,7 @@ describe "Invoice_items API" do
 
   it 'should return a random invoice_item' do
     create_list(:invoice_item, 10)
-    possible_ids = Invoice_item.all.map{|invoice_item| invoice_item.id}
+    possible_ids = InvoiceItem.all.map{|invoice_item| invoice_item.id}
 
     get '/api/v1/invoice_items/random'
     invoice_item = JSON.parse(response.body)

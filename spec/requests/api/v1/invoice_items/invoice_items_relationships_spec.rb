@@ -12,8 +12,8 @@ describe 'Invoice Items API' do
 
     expect(response).to have_http_status(200)
 
-    invoice = JSON.parse(response.body)
+    returned = JSON.parse(response.body)
 
-    expect(invoice['id']).to eq(invoice.id)
+    expect(returned['id']).to eq(invoice.id)
   end
 end

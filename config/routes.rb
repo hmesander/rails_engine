@@ -22,19 +22,21 @@ Rails.application.routes.draw do
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
         get 'random', to: 'random#show'
+        get ':id/invoices', to: 'customer_invoices#index'
+        get ':id/transactions', to: 'customer_transactions#index'
       end
       resources :customers, only: [:index, :show]
       namespace :invoices do
         get 'random', to: 'random#show'
         get 'find', to: 'search#show'
         get 'find_all', to: 'search#index'
+        get ':id/transactions', to: 'invoice_transactions#index'
+        get ':id/invoice_items', to: 'invoice_invoice_items#index'
+        get ':id/items', to: 'invoice_items#index'
+        get ':id/customer', to: 'invoice_customer#index'
+        get ':id/merchant', to: 'invoice_merchant#index'
       end
       resources :invoices, only: [:index, :show]
-
-      namespace :customers do
-        get ':id/invoices', to: 'customer_invoices#index'
-        get ':id/transactions', to: 'customer_transactions#index'
-      end
     end
   end
 end

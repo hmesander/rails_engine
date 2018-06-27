@@ -3,6 +3,6 @@ FactoryBot.define do
     invoice
     item
     quantity 1
-    unit_price ""
+    unit_price 10000
   end
 end

@@ -15,10 +15,11 @@ describe 'Merchants API favorite customer' do
     create_list(:transaction, 5, invoice: invoice2, result: "fail")
     create_list(:transaction, 2, invoice:invoice3, result: "fail")
 
-    get "api/v1/merchants/#{merchant.id}/favorite_customer"
+    get "/api/v1/merchants/#{merchant.id}/favorite_customer"
 
     returned_customer = JSON.parse(response.body)
 
-    expect(returned_customer["id"]).to eq(merchant.id)
+
+    expect(returned_customer["id"]).to eq(customer1.id)
   end
 end

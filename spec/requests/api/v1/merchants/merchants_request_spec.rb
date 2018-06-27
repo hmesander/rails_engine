@@ -25,16 +25,15 @@ describe 'Merchants API' do
   end
 
   it 'can find single merchant from given params' do
-    create(:merchant, name: 'Willms and Sons')
-    name = 'Hand-Spencer'
-    create(:merchant, name: name)
+    merchant = create(:merchant, updated_at: "2012-03-27T14:56:04.000Z")
+    create_list(:merchant, 4)
 
-    get "/api/v1/merchants/find?name=#{name}"
+    get "/api/v1/merchants/find?updated_at=2012-03-27T14:56:04.000Z"
     expect(response).to have_http_status(200)
 
-    merchant = JSON.parse(response.body)
+    merchant_returned = JSON.parse(response.body)
 
-    expect(merchant['name']).to eq('Hand-Spencer')
+    expect(merchant_returned['id']).to eq(merchant.id)
   end
 
   it 'can find all merchants from given params' do

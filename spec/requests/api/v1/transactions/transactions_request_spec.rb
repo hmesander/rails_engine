@@ -69,7 +69,7 @@ describe 'Transactions API' do
     customer = create(:customer)
     merchant = create(:merchant)
     invoice = create(:invoice, customer: customer, merchant: merchant)
-    create_list(:transaction, 3, invoice: invoice, credit_card_number: 12345678901234)
+    create_list(:transaction, 3, invoice: invoice)
 
     get '/api/v1/transactions/random'
 
@@ -77,6 +77,6 @@ describe 'Transactions API' do
 
     transaction = JSON.parse(response.body)
 
-    expect(transaction['credit_card_number']).to eq(transactions[1].credit_card_number)
+    expect(transaction[0]['invoice_id']).to eq(invoice.id)
   end
 end

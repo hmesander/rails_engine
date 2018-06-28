@@ -52,4 +52,28 @@ describe 'Merchants API' do
 
     expect(returned['revenue']).to eq(expected)
   end
+
+  it 'sends returns top merchants based on most items sold' do
+    merchants = create_list(:merchant, 5)
+    item0 = create(:item, merchant_id: merchants[0].id)
+    item1 = create(:item, merchant_id: merchants[1].id)
+    item2 = create(:item, merchant_id: merchants[2].id)
+    item3 = create(:item, merchant_id: merchants[3].id)
+    item4 = create(:item, merchant_id: merchants[4].id)
+    invoice = create(:invoice)
+    create(:invoice_item, item: item0, invoice: invoice, quantity: 5)
+    create(:invoice_item, item: item1, invoice: invoice, quantity: 2)
+    create(:invoice_item, item: item2, invoice: invoice, quantity: 9)
+    create(:invoice_item, item: item3, invoice: invoice, quantity: 3)
+    create(:invoice_item, item: item4, invoice: invoice, quantity: 7)
+
+    get '/api/v1/merchants/most_sold/revenue?quantity=3'
+
+    returned = JSON.parse(response.body)
+
+    expect(returned.length).to eq(3)
+    expect(returned[0]['name']).to eq(merchants[2].name)
+    expect(returned[1]['name']).to eq(merchants[4].name)
+    expect(returned[2]['name']).to eq(merchants[0].name)
+  end
 end

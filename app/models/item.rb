@@ -21,4 +21,12 @@ class Item < ApplicationRecord
       .first
       .created_at
   end
+
+  def self.most_items(quantity)
+    select('SUM(invoice_items.quantity) AS total_sold, items.*')
+      .joins(:invoice_items)
+      .group(:id)
+      .order('total_sold DESC')
+      .limit(quantity)
+  end
 end

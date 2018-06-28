@@ -18,4 +18,20 @@ describe 'Merchants API' do
 
     expect(returned['revenue']).to eq(expected)
   end
+
+  it 'should return the total revenue for all merchant for a ceratain date' do
+    merchant = create(:merchant)
+    invoice = create(:invoice, merchant: merchant)
+
+    create_list(:invoice_item, invoice_id: invoice, quantity: 5, unit_price: 100, created_at: DateTime.parse("2012-03-16"))
+    create_list(:invoice_item, invoice_id: invoice, quantity: 5, unit_price: 100, created_at: Time.now)
+
+    create(:transaction, result: "success", invoice_id: invoice)
+
+    get "/api/v1/merchants/revenue?date=#{"2012-03-16"}"
+
+    returned = JSON.parse(response.body)
+
+    expect(returned["revenue"]).to eq("5.00")
+  end
 end

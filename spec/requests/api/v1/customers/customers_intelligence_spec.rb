@@ -14,8 +14,6 @@ describe 'Customers API' do
     expect(response).to be_success
 
     returned = JSON.parse(response.body)
-
-    expect(returned.length).to eq(1)
-    expect(returned[0]['name']).to eq(merchants[1].name)
+    expect(returned['name']).to eq(merchants[1].name)
   end
 end

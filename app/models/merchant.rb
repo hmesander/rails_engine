@@ -14,6 +14,7 @@ class Merchant < ApplicationRecord
             .first
   end
 
+
   def self.total_rev_on_date(date)
     date = DateTime.parse(date)
 

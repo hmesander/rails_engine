@@ -66,7 +66,7 @@ describe 'Merchants API' do
     get '/api/v1/merchants/most_items?quantity=3'
 
     returned = JSON.parse(response.body)
-
+    require'pry';binding.pry
     expect(returned.length).to eq(3)
     expect(returned[0]['name']).to eq(merchants[2].name)
     expect(returned[1]['name']).to eq(merchants[4].name)

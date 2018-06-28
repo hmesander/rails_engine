@@ -44,7 +44,7 @@ describe 'Transactions API' do
 
     transaction = JSON.parse(response.body)
 
-    expect(transaction['credit_card_number']).to eq(credit_card_num)
+    expect(transaction['credit_card_number']).to eq(credit_card_num.to_s)
   end
 
   it 'can find all transactions from given params' do

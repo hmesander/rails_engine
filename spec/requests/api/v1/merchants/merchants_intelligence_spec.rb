@@ -31,7 +31,7 @@ describe 'Merchants API' do
 
     returned = JSON.parse(response.body)
 
-    expect(returned["revenue"]).to eq("25.00")
+    expect(returned["total_revenue"]).to eq("25.00")
   end
 
   it 'sends revenue for an individual merchant on a specific date' do

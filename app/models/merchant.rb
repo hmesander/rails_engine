@@ -9,7 +9,7 @@ class Merchant < ApplicationRecord
     Customer.joins(:transactions, :merchants)
             .group(:id)
             .where(transactions: {result: "success"},  merchants: {id: merchant_id})
-            .order("count(transactions)")
+            .order("count(transactions) DESC")
             .limit(1)
             .first
   end

@@ -39,15 +39,16 @@ describe 'Merchants API' do
   it 'sends revenue for an individual merchant on a specific date' do
     merchant = create(:merchant)
     items = create_list(:item, 2, merchant_id: merchant.id)
-    invoice = create(:invoice, created_at: '2012-03-25 09:54:09 UTC')
+    invoice = create(:invoice)
     create_list(:invoice_item, 2, item: items[0], invoice: invoice)
     create_list(:invoice_item, 3, item: items[1], invoice: invoice)
     create(:transaction, invoice: invoice)
+    desired_date = invoice.created_at.to_s
 
-    get "/api/v1/merchants/#{merchant.id}/revenue?date=#{invoice.created_at}"
+    get "/api/v1/merchants/#{merchant.id}/revenue?date=#{desired_date}"
 
     returned = JSON.parse(response.body)
-    expected = '%.2f' % (merchant.total_revenue('2012-03-25 09:54:09 UTC').to_f / 100)
+    expected = '%.2f' % (merchant.total_revenue('06-27-2018').to_f / 100)
 
     expect(returned['revenue']).to eq(expected)
   end

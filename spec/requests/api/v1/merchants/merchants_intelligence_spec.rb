@@ -21,14 +21,16 @@ describe 'Merchants API' do
 
   it 'should return the total revenue for all merchant for a ceratain date' do
     merchant = create(:merchant)
-    invoice = create(:invoice, merchant: merchant)
+    invoice1 = create(:invoice, merchant: merchant, created_at: DateTime.parse("2012-03-16"))
+    invoice2 = create(:invoice, merchant: merchant, created_at: DateTime.parse("2012-03-18"))
 
-    create_list(:invoice_item, 5, invoice: invoice, quantity: 5, unit_price: 100, created_at: DateTime.parse("2012-03-16"))
-    create_list(:invoice_item, 5, invoice: invoice, quantity: 5, unit_price: 100, created_at: Time.now)
+    
+    create_list(:invoice_item, 5, invoice: invoice1, quantity: 5, unit_price: 100)
+    create_list(:invoice_item, 5, invoice: invoice2, quantity: 5, unit_price: 100)
 
-    create(:transaction, result: "success", invoice: invoice)
+    create(:transaction, result: "success", invoice: invoice1)
 
-    get "/api/v1/merchants/revenue?date=#{"2012-03-16"}"
+    get "/api/v1/merchants/revenue?date=2012-03-16"
 
     returned = JSON.parse(response.body)
 

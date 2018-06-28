@@ -40,10 +40,10 @@ class Merchant < ApplicationRecord
   end
 
   def self.rank_by_items(merch_num)
-    select('merchants.*, sum(invoice_items.quantity) AS total_items')
-      .joins(items: [:invoice_items])
-      .group(:id)
-      .order('total_items DESC')
-      .limit(merch_num)
+    joins(invoice_items: [:transactions])
+    .order('sum(invoice_items.quantity) DESC')
+    .where(transactions:{result: "success"})
+    .group(:id)
+    .limit(merch_num)
   end
 end

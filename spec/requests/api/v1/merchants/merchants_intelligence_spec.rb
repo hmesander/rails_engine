@@ -3,20 +3,18 @@ require 'rails_helper'
 describe 'Merchants API' do
   it 'sends revenue for an individual merchant' do
     merchant = create(:merchant)
-    items = create_list(:item, 2, merchant_id: merchant.id)
-    invoice = create(:invoice)
-    create_list(:invoice_item, 2, item: items[0], invoice: invoice)
-    create_list(:invoice_item, 3, item: items[1], invoice: invoice)
-    create(:transaction, invoice: invoice)
+    item = create(:item, merchant: merchant)
+    invoice = create(:invoice, merchant: merchant)
+    create(:invoice_item, item: item, invoice: invoice, unit_price: 300, quantity: 5)
+    create(:transaction, invoice: invoice, result: 'success')
 
     get "/api/v1/merchants/#{merchant.id}/revenue"
 
     expect(response).to be_success
 
     returned = JSON.parse(response.body)
-    expected = '%.2f' % (merchant.total_revenue.to_f / 100)
 
-    expect(returned['revenue']).to eq(expected)
+    expect(returned['revenue']).to eq('15.00')
   end
 
   it 'should return the total revenue for all merchant for a certain date' do
@@ -38,19 +36,17 @@ describe 'Merchants API' do
 
   it 'sends revenue for an individual merchant on a specific date' do
     merchant = create(:merchant)
-    items = create_list(:item, 2, merchant_id: merchant.id)
-    invoice = create(:invoice)
-    create_list(:invoice_item, 2, item: items[0], invoice: invoice)
-    create_list(:invoice_item, 3, item: items[1], invoice: invoice)
-    create(:transaction, invoice: invoice)
-    desired_date = invoice.created_at.to_s
+    item = create(:item, merchant: merchant)
+    invoice = create(:invoice, created_at: '2012-03-25 09:54:09 UTC', merchant: merchant)
+    create(:invoice_item, item: item, invoice: invoice, unit_price: 300, quantity: 5)
+    create(:invoice_item, item: item, invoice: invoice, unit_price: 200, quantity: 4)
+    create(:transaction, invoice: invoice, result: 'success')
 
-    get "/api/v1/merchants/#{merchant.id}/revenue?date=#{desired_date}"
+    get "/api/v1/merchants/#{merchant.id}/revenue?date=2012-03-25"
 
     returned = JSON.parse(response.body)
-    expected = '%.2f' % (merchant.total_revenue('06-27-2018').to_f / 100)
 
-    expect(returned['revenue']).to eq(expected)
+    expect(returned['revenue']).to eq('23.00')
   end
 
   it 'sends returns top merchants based on most items sold' do

@@ -23,10 +23,10 @@ class Merchant < ApplicationRecord
     .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
-  def total_revenue(date = {})
+  def total_revenue(filter = {})
     invoice_items
       .joins(:transactions)
-      .where(date)
+      .where(filter)
       .merge(Transaction.success)
       .sum('invoice_items.unit_price * invoice_items.quantity')
   end

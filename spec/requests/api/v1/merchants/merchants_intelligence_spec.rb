@@ -75,8 +75,8 @@ describe 'Merchants API' do
 
   it 'should return the top x merchants by revenue' do
     merchant1 = create(:merchant, name:"Top merchant")
-    merchant2 = create(:merchant, name:"Top merchant")
-    merchant3 = create(:merchant, name:"Top merchant")
+    merchant2 = create(:merchant, name:"not a Top merchant")
+    merchant3 = create(:merchant, name:"another Top merchant")
     merchant4 = create(:merchant, name:"not Top merchant")
 
     invoice1 = create(:invoice, merchant: merchant1)
@@ -84,7 +84,7 @@ describe 'Merchants API' do
     invoice3 = create(:invoice, merchant: merchant3)
     invoice4 = create(:invoice, merchant: merchant4)
 
-    create_list(:invoice_item, 5, quantity: 5, unit_price: 1000 invoice: invoice1) 
+    create_list(:invoice_item, 5, quantity: 5, unit_price: 1000, invoice: invoice1) 
     create_list(:invoice_item, 5, quantity: 3, unit_price: 900, invoice: invoice2) 
     create_list(:invoice_item, 5, quantity: 2, unit_price: 600, invoice: invoice3) 
     create_list(:invoice_item, 5, quantity: 1, unit_price: 400, invoice: invoice4) 

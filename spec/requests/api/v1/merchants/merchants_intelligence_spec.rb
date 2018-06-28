@@ -67,7 +67,7 @@ describe 'Merchants API' do
     create(:invoice_item, item: item3, invoice: invoice, quantity: 3)
     create(:invoice_item, item: item4, invoice: invoice, quantity: 7)
 
-    get '/api/v1/merchants/most_sold/revenue?quantity=3'
+    get '/api/v1/merchants/most_items?quantity=3'
 
     returned = JSON.parse(response.body)
 

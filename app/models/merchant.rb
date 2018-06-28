@@ -7,11 +7,11 @@ class Merchant < ApplicationRecord
 
   def self.favorite_customer(merchant_id)
     Customer.joins(:transactions, :merchants)
-    .group(:id)
-    .where(transactions: {result: "success"},  merchants: {id: merchant_id})
-    .order("count(transactions)")
-    .limit(1)
-    .first
+            .group(:id)
+            .where(transactions: {result: "success"},  merchants: {id: merchant_id})
+            .order("count(transactions)")
+            .limit(1)
+            .first
   end
 
   def self.total_rev_on_date(date)
@@ -23,10 +23,19 @@ class Merchant < ApplicationRecord
     .sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
-  def total_revenue
+  def total_revenue(filter = {})
     invoice_items
       .joins(:transactions)
+      .where(filter)
       .merge(Transaction.success)
       .sum('invoice_items.unit_price * invoice_items.quantity')
+  end
+
+  def self.rank_by_items(merch_num)
+    select('merchants.*, sum(invoice_items.quantity) AS total_items')
+      .joins(items: [:invoice_items])
+      .group(:id)
+      .order('total_items DESC')
+      .limit(merch_num)
   end
 end

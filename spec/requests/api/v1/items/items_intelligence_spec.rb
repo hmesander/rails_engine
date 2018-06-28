@@ -16,4 +16,20 @@ describe 'Items API' do
 
     expect(returned['best_day']).to eq('2012-03-13T05:54:09.000Z')
   end
+
+  it 'returns the top items ranked by amount sold' do
+    items = create_list(:item, 5)
+    invoice = create(:invoice)
+    create_list(:invoice_item, 4, item: items[2], invoice: invoice, quantity: 10)
+    create_list(:invoice_item, 4, item: items[1], invoice: invoice, quantity: 5)
+    create_list(:invoice_item, 2, item: items[4], invoice: invoice, quantity: 100)
+
+    get "/api/v1/items/most_items?quantity=3"
+
+    returned = JSON.parse(response.body)
+
+    expect(returned[0]['name']).to eq(items[4].name)
+    expect(returned[1]['name']).to eq(items[2].name)
+    expect(returned[2]['name']).to eq(items[1].name)
+  end
 end

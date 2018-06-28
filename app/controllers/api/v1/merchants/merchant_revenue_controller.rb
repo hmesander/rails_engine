@@ -4,6 +4,11 @@ class Api::V1::Merchants::MerchantRevenueController < ApplicationController
     render json: { 'revenue' => money(revenue) }
   end
 
+  def index
+
+    render json: Merchant.top_merchants(params["quantity"])
+  end
+
   private
 
   def query_params

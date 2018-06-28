@@ -8,12 +8,12 @@ describe "Top Items by revenue" do
 
     invoice = create(:invoice)
 
-    create_list(invoice_items, 5, quantity: 5, unit_price: 1000, item: item1, invoice: invoice) 
-    create_list(invoice_items, 5, quantity: 3, unit_price: 900, item: item2, invoice: invoice) 
-    create_list(invoice_items, 5, quantity: 2, unit_price: 600, item: item3, invoice: invoice) 
-    create_list(invoice_items, 5, quantity: 1, unit_price: 400, item: item4, invoice: invoice) 
+    create_list(:invoice_item, 5, quantity: 5, unit_price: 1000, item: item1, invoice: invoice) 
+    create_list(:invoice_item, 5, quantity: 3, unit_price: 900, item: item2, invoice: invoice) 
+    create_list(:invoice_item, 5, quantity: 2, unit_price: 600, item: item3, invoice: invoice) 
+    create_list(:invoice_item, 5, quantity: 1, unit_price: 400, item: item4, invoice: invoice) 
 
-    transaction = create(:transaction, invoice: invoice, result: "success")
+    create(:transaction, invoice: invoice, result: "success")
 
     get '/api/v1/items/most_revenue?quantity=2'
 

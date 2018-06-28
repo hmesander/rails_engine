@@ -23,15 +23,15 @@ describe 'Merchants API' do
     merchant = create(:merchant)
     invoice = create(:invoice, merchant: merchant)
 
-    create_list(:invoice_item, invoice_id: invoice, quantity: 5, unit_price: 100, created_at: DateTime.parse("2012-03-16"))
-    create_list(:invoice_item, invoice_id: invoice, quantity: 5, unit_price: 100, created_at: Time.now)
+    create_list(:invoice_item, 5, invoice: invoice, quantity: 5, unit_price: 100, created_at: DateTime.parse("2012-03-16"))
+    create_list(:invoice_item, 5, invoice: invoice, quantity: 5, unit_price: 100, created_at: Time.now)
 
-    create(:transaction, result: "success", invoice_id: invoice)
+    create(:transaction, result: "success", invoice: invoice)
 
     get "/api/v1/merchants/revenue?date=#{"2012-03-16"}"
 
     returned = JSON.parse(response.body)
 
-    expect(returned["revenue"]).to eq("5.00")
+    expect(returned["revenue"]).to eq("25.00")
   end
 end

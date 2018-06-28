@@ -10,6 +10,7 @@ class Item < ApplicationRecord
     .group(:id)
     .where(transactions: {result: "success"})
     .limit(quantity)
+  end
 
   def best_day
     invoices

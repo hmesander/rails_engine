@@ -7,11 +7,11 @@ class Merchant < ApplicationRecord
 
   def self.favorite_customer(merchant_id)
     Customer.joins(:transactions, :merchants)
-    .group(:id)
-    .where(transactions: {result: "success"},  merchants: {id: merchant_id})
-    .order("count(transactions)")
-    .limit(1)
-    .first
+            .group(:id)
+            .where(transactions: {result: "success"},  merchants: {id: merchant_id})
+            .order("count(transactions)")
+            .limit(1)
+            .first
   end
 
   def self.total_rev_on_date(date)

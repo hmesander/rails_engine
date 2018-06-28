@@ -19,12 +19,11 @@ describe 'Merchants API' do
     expect(returned['revenue']).to eq(expected)
   end
 
-  it 'should return the total revenue for all merchant for a ceratain date' do
+  it 'should return the total revenue for all merchant for a certain date' do
     merchant = create(:merchant)
     invoice1 = create(:invoice, merchant: merchant, created_at: DateTime.parse("2012-03-16"))
     invoice2 = create(:invoice, merchant: merchant, created_at: DateTime.parse("2012-03-18"))
 
-    
     create_list(:invoice_item, 5, invoice: invoice1, quantity: 5, unit_price: 100)
     create_list(:invoice_item, 5, invoice: invoice2, quantity: 5, unit_price: 100)
 
@@ -35,5 +34,21 @@ describe 'Merchants API' do
     returned = JSON.parse(response.body)
 
     expect(returned["revenue"]).to eq("25.00")
+  end
+
+  it 'sends revenue for an individual merchant on a specific date' do
+    merchant = create(:merchant)
+    items = create_list(:item, 2, merchant_id: merchant.id)
+    invoice = create(:invoice, created_at: '2012-03-25 09:54:09 UTC')
+    create_list(:invoice_item, 2, item: items[0], invoice: invoice)
+    create_list(:invoice_item, 3, item: items[1], invoice: invoice)
+    create(:transaction, invoice: invoice)
+
+    get "/api/v1/merchants/#{merchant.id}/revenue?date=#{invoice.created_at}"
+
+    returned = JSON.parse(response.body)
+    expected = '%.2f' % (merchant.total_revenue('2012-03-25 09:54:09 UTC').to_f / 100)
+
+    expect(returned['revenue']).to eq(expected)
   end
 end

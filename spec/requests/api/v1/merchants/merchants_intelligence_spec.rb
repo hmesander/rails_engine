@@ -31,7 +31,7 @@ describe 'Merchants API' do
 
     returned = JSON.parse(response.body)
 
-    expect(returned["revenue"]).to eq("25.00")
+    expect(returned["total_revenue"]).to eq("25.00")
   end
 
   it 'sends revenue for an individual merchant on a specific date' do
@@ -51,23 +51,31 @@ describe 'Merchants API' do
 
   it 'sends returns top merchants based on most items sold' do
     merchants = create_list(:merchant, 5)
-    item0 = create(:item, merchant_id: merchants[0].id)
-    item1 = create(:item, merchant_id: merchants[1].id)
-    item2 = create(:item, merchant_id: merchants[2].id)
-    item3 = create(:item, merchant_id: merchants[3].id)
-    item4 = create(:item, merchant_id: merchants[4].id)
-    invoice = create(:invoice)
-    create(:invoice_item, item: item0, invoice: invoice, quantity: 5)
-    create(:invoice_item, item: item1, invoice: invoice, quantity: 2)
-    create(:invoice_item, item: item2, invoice: invoice, quantity: 9)
-    create(:invoice_item, item: item3, invoice: invoice, quantity: 3)
-    create(:invoice_item, item: item4, invoice: invoice, quantity: 7)
+    item0 = create(:item, merchant: merchants[0])
+    item1 = create(:item, merchant: merchants[1])
+    item2 = create(:item, merchant: merchants[2])
+    item3 = create(:item, merchant: merchants[3])
+    item4 = create(:item, merchant: merchants[4])
+    invoice0 = create(:invoice, merchant: merchants[0])
+    invoice1 = create(:invoice, merchant: merchants[1])
+    invoice2 = create(:invoice, merchant: merchants[2])
+    invoice3 = create(:invoice, merchant: merchants[3])
+    invoice4 = create(:invoice, merchant: merchants[4])
+    create(:transaction, invoice: invoice0, result:'success')
+    create(:transaction, invoice: invoice1, result:'success')
+    create(:transaction, invoice: invoice2, result:'success')
+    create(:transaction, invoice: invoice3, result:'success')
+    create(:transaction, invoice: invoice4, result:'success')
 
+    create(:invoice_item, item: item0, invoice: invoice0, quantity: 5)
+    create(:invoice_item, item: item1, invoice: invoice1, quantity: 2)
+    create(:invoice_item, item: item2, invoice: invoice2, quantity: 9)
+    create(:invoice_item, item: item3, invoice: invoice3, quantity: 3)
+    create(:invoice_item, item: item4, invoice: invoice4, quantity: 7)
     get '/api/v1/merchants/most_items?quantity=3'
 
     returned = JSON.parse(response.body)
-
-    expect(returned.length).to eq(3)
+        expect(returned.length).to eq(3)
     expect(returned[0]['name']).to eq(merchants[2].name)
     expect(returned[1]['name']).to eq(merchants[4].name)
     expect(returned[2]['name']).to eq(merchants[0].name)

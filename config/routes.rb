@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         get 'revenue', to: 'revenue_date#show'
         get 'most_revenue', to: 'merchant_revenue#index'
         get 'most_items', to: 'most_items#index'
+        get ':id/customers_with_pending_invoices', to: 'pending_customers#index'
         get ':id/items', to: 'merchant_items#index'
         get ':id/invoices', to: 'merchant_invoices#index'
         get ':id/favorite_customer', to: 'favorite_customer#show'

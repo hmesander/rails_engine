@@ -1,4 +1,4 @@
-class Api::V1::Merchants::MerchantRevenueController < ApplicationController
+class Api::V1::Merchants::RevenueController < ApplicationController
   def show
     revenue = Merchant.find(params[:id]).total_revenue(query_params)
     render json: { 'revenue' => money(revenue) }

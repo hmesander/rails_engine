@@ -25,9 +25,10 @@ describe 'Transactions API' do
 
     get "/api/v1/transactions/#{id}"
 
+    expect(response).to have_http_status(200)
+
     transaction = JSON.parse(response.body)
 
-    expect(response).to have_http_status(200)
     expect(transaction['id']).to eq(id)
   end
 

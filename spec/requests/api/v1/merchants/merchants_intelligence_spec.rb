@@ -108,4 +108,34 @@ describe 'Merchants API' do
     expect(merchants_returned[0]["name"]).to eq(merchant1.name)
     expect(merchants_returned[1]["name"]).to eq(merchant3.name)
   end
+  it 'should return customers with pending invoices' do
+    merchant = create(:merchant)
+    customer1 = create(:customer, first_name:"not pending")
+    customer2 = create(:customer, first_name:"pending")
+    customer3 = create(:customer, first_name:"not pending")
+    customer4 = create(:customer, first_name:"not pending")
+    invoice1 = create(:invoice, customer: customer1, merchant: merchant)
+    invoice2 = create(:invoice, customer: customer2, merchant: merchant)
+    invoice3 = create(:invoice, customer: customer3, merchant: merchant)
+    invoice4 = create(:invoice, customer: customer4, merchant: merchant)
+    create(:transaction, invoice: invoice1,result: 'success')
+    create(:transaction, invoice: invoice1,result: 'success')
+
+    create(:transaction, invoice: invoice2,result: 'failed')
+    create(:transaction, invoice: invoice2,result: 'failed')
+
+    create(:transaction, invoice: invoice3,result: 'success')
+    create(:transaction, invoice: invoice3,result: 'failed')
+    create(:transaction, invoice: invoice3,result: 'failed')
+
+    create(:transaction, invoice: invoice4,result: 'failed')
+    create(:transaction, invoice: invoice4,result: 'success')
+
+    get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
+
+    returned_customers = JSON.parse(response.body)
+
+    expect(returned_customers.size).to eq(1)
+    expect(returned_customers[0]["first_name"]).to eq(customer2.first_name)
+  end
 end

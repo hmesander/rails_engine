@@ -143,9 +143,11 @@ GET /api/v1/customers/:id/favorite_merchant returns a merchant where the custome
 
 ## Built With
 
+* [rails](https://github.com/rails/rails)
 * [factorybot](https://github.com/thoughtbot/factory_bot)
 * [database cleaner](https://github.com/DatabaseCleaner/database_cleaner)
 * [shoulda matchers](https://github.com/thoughtbot/shoulda-matchers)
+* [simplecov](https://github.com/colszowka/simplecov)
 
 ## Authors
 * [Zachary Thomas](https://github.com/zdcthomas)

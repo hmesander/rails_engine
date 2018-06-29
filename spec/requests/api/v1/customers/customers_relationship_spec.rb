@@ -19,6 +19,7 @@ describe 'Customers API' do
     merchant = create(:merchant)
     invoice = create(:invoice, merchant: merchant, customer: customer)
     create_list(:transaction, 5, invoice: invoice)
+    create_list(:transaction, 10)
 
     get "/api/v1/customers/#{customer.id}/transactions"
 

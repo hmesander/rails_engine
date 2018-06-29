@@ -18,9 +18,10 @@ describe 'Merchants API' do
 
     get "/api/v1/merchants/#{id}"
 
+    expect(response).to have_http_status(200)
+
     merchant = JSON.parse(response.body)
 
-    expect(response).to have_http_status(200)
     expect(merchant['id']).to eq(id)
   end
 
@@ -29,6 +30,7 @@ describe 'Merchants API' do
     create_list(:merchant, 4)
 
     get "/api/v1/merchants/find?updated_at=2012-03-27T14:56:04.000Z"
+
     expect(response).to have_http_status(200)
 
     merchant_returned = JSON.parse(response.body)
@@ -42,6 +44,7 @@ describe 'Merchants API' do
     create_list(:merchant, 5, name: name)
 
     get "/api/v1/merchants/find_all?name=#{name}"
+
     expect(response).to have_http_status(200)
 
     merchants = JSON.parse(response.body)
@@ -56,6 +59,7 @@ describe 'Merchants API' do
     merchants = create_list(:merchant, 8)
 
     get '/api/v1/merchants/random'
+
     expect(response).to have_http_status(200)
 
     merchant = JSON.parse(response.body)

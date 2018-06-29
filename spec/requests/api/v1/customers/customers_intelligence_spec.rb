@@ -11,7 +11,7 @@ describe 'Customers API' do
 
     get "/api/v1/customers/#{customer.id}/favorite_merchant"
 
-    expect(response).to be_success
+    expect(response).to have_http_status(200)
 
     returned = JSON.parse(response.body)
     expect(returned['name']).to eq(merchants[1].name)

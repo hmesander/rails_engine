@@ -12,7 +12,7 @@ describe 'Transactions API' do
 
     returned_invoice = JSON.parse(response.body)
 
-    expect(returned_invoice["status"]).to eq(invoice.status)
-    expect(returned_invoice["id"]).to eq(invoice.id)
+    expect(returned_invoice['status']).to eq(invoice.status)
+    expect(returned_invoice['id']).to eq(invoice.id)
   end
 end
